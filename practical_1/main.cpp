@@ -179,6 +179,8 @@ void Update(RenderWindow &window) {
 		ballVelocity.y *= 1.1f;
 		ball.move(0, 10);
 	}
+	//paddles[0].move(0, direction * paddleSpeed * dt);
+	//paddles[1].move(0, direction * paddleSpeed * dt);
 }
 
 void Render(RenderWindow &window) {
