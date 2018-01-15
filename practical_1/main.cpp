@@ -57,7 +57,7 @@ void Load() {
 	for (auto &p : paddles) {
 		// Ask Sam about this logic. Why define paddleSize size previously
 		// then subtract both Width and Height by 3.f here?...
-		p.setSize(paddleSize - Vector2f(3, 3));
+		p.setSize(paddleSize);
 		p.setOrigin(paddleSize / 2.f);
 	}
 	// Set size and origin of ball
@@ -81,8 +81,8 @@ void Load() {
 
 void Reset() {
 	// reset paddle position
-	paddles[0].setPosition(10 + paddleSize.x / 2, gameHeight / 2);
-	paddles[1].setPosition(770 + paddleSize.x / 2, gameHeight / 2); //Check with Sam if this is correct!!!
+	paddles[0].setPosition(0 + paddleSize.x / 2, gameHeight / 2);
+	paddles[1].setPosition(gameWidth - paddleSize.x / 2, gameHeight / 2); //Check with Sam if this is correct!!!
 	// reset Ball position
 	ball.setPosition(gameWidth / 2, gameHeight / 2); //May not work... IT WORKS!!!
 }
@@ -107,7 +107,10 @@ void Update(RenderWindow &window) {
 
 	// Handle paddle movement
 	// IF CONTROLING/MOVING BOTH AT THE SAME TIME, RIGHT PADDLE WILL GO FASTER!!!! DUNKT KNOW WHY, ASK SAM!!!
+	// Direction for left Paddle
 	float direction = 0.0f;
+	// Direction for right Paddle
+	float rightDirection = 0.0f;
 	if (Keyboard::isKeyPressed(controls[0])) {
 		direction--; // Paddle goes down vertically
 		// Add relevant paddle (Left) to desired controls
@@ -117,13 +120,14 @@ void Update(RenderWindow &window) {
 		direction++; // Paddle goes up vertically
 		paddles[0].move(0, direction * paddleSpeed * dt);
 	}
+	// Same as above but applies to Right Paddle instead of left by using the float data type "rightDirection"
 	if (Keyboard::isKeyPressed(controls[2])) {
-		direction--; // Paddle goes down vertically
+		rightDirection--; // Paddle goes down vertically
 		// Add relevant paddle (Right) to desired controls
 		paddles[1].move(0, direction * paddleSpeed * dt);
 	}
 	if (Keyboard::isKeyPressed(controls[3])) {
-		direction++; // Paddle goes up vertically
+		rightDirection++; // Paddle goes up vertically
 		paddles[1].move(0, direction * paddleSpeed * dt);
 	}
 
@@ -168,7 +172,8 @@ void Update(RenderWindow &window) {
 		ball.move(0, -10);
 	}
 	else if (
-		bx < paddleSize.x
+		// Subtract "gameWidth" (800) to paddleSize (25). If ball is greater than 775 (800 - 25) then, cannot rebound.
+		bx > gameWidth - paddleSize.x 
 		&&
 		by > paddles[1].getPosition().y - (paddleSize.y * 0.5)
 		&&
@@ -179,8 +184,13 @@ void Update(RenderWindow &window) {
 		ballVelocity.y *= 1.1f;
 		ball.move(0, 10);
 	}
-	//paddles[0].move(0, direction * paddleSpeed * dt);
-	//paddles[1].move(0, direction * paddleSpeed * dt);
+
+	if (paddleSize.x > gameHeight - paddleSize.x) {
+		direction = 0.0f;
+		
+	}
+	paddles[0].move(0, direction * paddleSpeed * dt);
+	paddles[1].move(0, rightDirection * paddleSpeed * dt);
 }
 
 void Render(RenderWindow &window) {
