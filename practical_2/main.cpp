@@ -1,11 +1,19 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 using namespace sf;
 using namespace std;
 
-void Load() {
-	//
+Texture spritesheet;
+Sprite invader;
 
+void Load() {
+	// If check for spritesheet load
+	if (!spritesheet.loadFromFile("res/img/invaders_sheet.png")) {
+		cerr << "Failed to load srpitesheet!" << endl;
+	}
+	invader.setTexture(spritesheet);
+	invader.setTextureRect(IntRect(0, 0, 32, 32));
 }
 
 void Update(double dt) {
@@ -16,6 +24,7 @@ void Update(double dt) {
 
 void Render() {
 	// Draw Everything
+	window.draw(invader); //unsure why "window" is undefined
 
 }
 
