@@ -2,17 +2,23 @@
 #include <iostream>
 #include "ship.h"
 #include "game.h"
-
-
+#include "bullet.h"
 
 using namespace sf;
 using namespace std;
 
 Texture spritesheet;
-Sprite invader;
+Sprite invader; // Possibly stop using this?
 
 std::vector<Ship *> ships;
+Ship* playerShip;
 
+void Reset() {
+	// Reset Invaders movement
+	Invader::direction = true;
+	Invader::speed = 30.f;
+	Invader::speed = 160.f;
+}
 
 void Load() {
 	// Load Spritesheet
@@ -20,8 +26,8 @@ void Load() {
 	if (!spritesheet.loadFromFile("res/img/invaders_sheet.png")) {
 		cerr << "Failed to load srpitesheet!" << endl;
 	}
-	invader.setTexture(spritesheet);
-	invader.setTextureRect(IntRect(0, 0, 32, 32));
+	/*invader.setTexture(spritesheet);
+	invader.setTextureRect(IntRect(0, 0, 32, 32));*/ // Will see if this needs to be removed?
 
 	// Load Invader
 	Invader* inv = new Invader(sf::IntRect(0, 0, 32, 32), { 100, 100 });
@@ -39,17 +45,40 @@ void Load() {
 			ships.push_back(inv);
 		}
 	}
+	// Player
+	auto player = new Player();
+	playerShip = player;
+	ships.push_back(player);
+
+	Reset();
 }
 
-void Update(double dt) {
+void Update(RenderWindow &window) {
 	// Update Everything
+	// Updates and resets clock. Adjust delta time as needed
 	static Clock clock;
 	float dt = clock.restart().asSeconds();
+	// Event checking
+	Event event;
+	while (window.pollEvent(event)) {
+		if (event.type == Event::Closed) {
+			window.close();
+			return;
+		}
+	}
+
+	// Quit via ESC key
+	if (Keyboard::isKeyPressed(Keyboard::Escape)) {
+		window.close();
+	}
 
 	// Ships
 	for (auto &s : ships) {
 		s->Update(dt); // accessing data BEYOND the "pointer"
-	};
+	}
+
+	// Bullets
+	Bullet::Update(dt);
 }
 
 void Render(RenderWindow &window) {
@@ -57,15 +86,17 @@ void Render(RenderWindow &window) {
 	for (const auto &s : ships) {
 		window.draw(*s);
 	}
+    Bullet::Render(window);
 }
 
 int Main() {
-	// Initialise and Load
-	//while() {
-		// Calculate DT
-		//Update(dt);
-		//Render();
-		// Wait for Vsync
-	//}
-	// Unload and shutdown
+	RenderWindow window(VideoMode(gameWidth, gameHeight), "SPACE INVADERS");
+	Load();
+	while (window.isOpen()) {
+		window.clear();
+		Update(window);
+		Render(window);
+		window.display();
+	}
+	return 0;
 }

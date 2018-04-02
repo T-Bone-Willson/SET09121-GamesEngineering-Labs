@@ -7,7 +7,7 @@ Bullet::Bullet(const sf::Vector2f &pos, const bool mode) : Bullet() { // THIS IS
 	setPosition(pos);
 	_mode = mode;
 	// Set correct texture
-	if (mode) {
+	if (_mode) {
 		setTextureRect(IntRect(32, 32, 32, 32)); // Sets green bullet
 	}
 	else {

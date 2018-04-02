@@ -2,7 +2,6 @@
 #include "game.h"
 #include "bullet.h"
 
-
 using namespace sf;
 using namespace std;
 
@@ -12,6 +11,7 @@ Ship::Ship(IntRect ir) : Sprite() {
 	_sprite = ir;
 	setTexture(spritesheet);
 	setTexture(_sprite);
+	_exploded = false;
 };
 
 void Ship::Update(const float &dt) {
@@ -92,7 +92,7 @@ void Player::Update(const float &dt) {
 			direction--; //Deincrements the direction/position of ship
 	}
 	// Move Right
-	if (Keyboard::isKeyPressed(Keyboard::Left)) {
+	if (Keyboard::isKeyPressed(Keyboard::Right)) {
 		if (getPosition().x + 16 < gameWidth)
 			direction++; //Increments the direction/position of ship
 	}
@@ -110,5 +110,5 @@ float Player::speed;
 
 void Player::Explode() {
 	Ship::Explode();
-	getTextureRect(IntRect(0, 32, 32, 32));
+	setTextureRect(IntRect(0, 32, 32, 32));
 }

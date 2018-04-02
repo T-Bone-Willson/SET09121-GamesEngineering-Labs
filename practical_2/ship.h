@@ -29,10 +29,13 @@ public:
 	void Update(const float &dt) override;
 	static bool direction; // all invader sprites move as one
 	static float speed; // all invader sprites have same speed
+	void Explode();
 };
 
 class Player : public Ship {
 public:
 	Player();
 	void Update(const float &dt) override;
+	static float speed; // Ship.cpp errors didn't recognise "speed" because...
+	void Explode(); // I didn't declare it here. Because I'm a fanny.
 };
