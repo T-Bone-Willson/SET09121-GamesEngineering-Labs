@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "maths.h"
 
 #define ls LevelSystem
 
@@ -30,8 +31,8 @@ public:
 	static size_t getHeight();
 	static size_t getWidth();
 
-protected: std::unique_ptr<TILE[]> _tiles;
-
+protected: 
+	
 	static std::unique_ptr<TILE[]> _tiles;
 	static size_t _width;
 	static size_t _height;
