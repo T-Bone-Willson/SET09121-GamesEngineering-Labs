@@ -8,18 +8,18 @@ void Player::update(double dt) { // double may be float!!!!!!!!!!!!!!!!!!!!!
 	// Movement
 	sf::Vector2f displacement = { 0.0f, 0.0f };
 	if (Keyboard::isKeyPressed(Keyboard::Left)) {
-		displacement.x--;
+		displacement.x --;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Right)) {
-		displacement.x++;
+		displacement.x ++;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Up)) {
-		displacement.y++;
+		displacement.y ++;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Down)) {
-		displacement.y--;
+		displacement.y --;
 	}
-	//move((double)dt * displacement * _speed);
+	/*move((double)dt * displacement * _speed);*/ // COMMMENTED OUT FOR NOW!!!!!!!!!!!!!!! NEED TO FIGUR OUT MOVEMENT
 
 	Entity::update(dt);
 }

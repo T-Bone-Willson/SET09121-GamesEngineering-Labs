@@ -8,10 +8,19 @@ using namespace sf;
 std::unique_ptr < LevelSystem::TILE[]> LevelSystem::_tiles;
 size_t LevelSystem::_width;
 size_t LevelSystem::_height;
-Vector2f LevelSystem::_offset(0.0f, 30.0f);
+//Vector2f LevelSystem::_offset(0.0f, 30.0f);
 
 float LevelSystem::_tileSize(100.f);
 vector<std::unique_ptr<sf::RectangleShape>> LevelSystem::_sprites;
+Vector2f LevelSystem::_offset(0.0f, 30.0f);
+
+size_t LevelSystem::getHeight() {
+	return _height;
+}
+
+size_t LevelSystem::getWidth() {
+	return _width;
+}
 
 std::map<LevelSystem::TILE, sf::Color> LevelSystem::_colours{ // THIS MAY BE "_colours"!!!!!!!!!!!!!!!
 	{WALL, Color::White}, {END, Color::Red}
@@ -80,7 +89,9 @@ void LevelSystem::LevelSystem::loadLevelFile(const std::string& path, float tile
 		}
 	}
 
-	if (temp_tiles.size() != (w* h)) {
+	h++; // THIS MAY WORK!
+
+	if (temp_tiles.size() != (w * h)) {
 		throw string("Can't parse level file. SORRY!!!") + path; // Error message for user
 	}
 	// Makes a 1D Array for tile information
