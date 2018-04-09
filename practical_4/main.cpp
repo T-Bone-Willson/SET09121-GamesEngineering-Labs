@@ -1,9 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "game.h"
 #include "entity.h"
 #include "player.h"
 #include "ghost.h"
+#include "system_renderer.h"
+#include "pacman.h"
 
 using namespace sf;
 using namespace std;
@@ -22,18 +23,13 @@ void Reset() {
 void Load() {
 
 	// Player
-	//player = new Player();
-	//entities.push_back(player);
-
-	shared_ptr<Entity> player = make_shared<Entity>(Player()); // Adds the player entity the the EntityManager
+	shared_ptr<Entity> player = make_shared<Player>(); // Adds the player entity the the EntityManager
 	em.list.push_back(player);
+	// "make_shared<player>();" calls the constructor of player with no parameters
 
 	// Ghosts
 	for (int i = 0; i < 4; i++) {
-		//Ghost* ghost = new Ghost();
-		//entities.push_back(ghost);
-
-		shared_ptr<Entity> ghost = make_shared<Entity>(Ghost()); // Adds the Ghost entity into the EntityManager
+		shared_ptr<Entity> ghost = make_shared<Ghost>()); // Adds the Ghost entity into the EntityManager
 		em.list.push_back(ghost);
 	}
 	Reset();
@@ -56,20 +52,16 @@ void Update(RenderWindow &window) {
 	if (Keyboard::isKeyPressed(Keyboard::Escape)) {
 		window.close();
 	}
-
-	//for (auto &e : entities) {
-		e->update(dt);
-	//}
+		em.update(dt);	
 }
 
 void Render(RenderWindow &window) {
-	//for (auto &e : entities) {
-		e->render(window);
-	//}
+		em.render(window);
 }
 
 int main() {
 	RenderWindow window(VideoMode(gameWidth, gameHeight), "PACMAN");
+	Renderer::initialise(window); // This ties to the system_renderer!!!!
 	Load();
 	while (window.isOpen()) {
 		window.clear();

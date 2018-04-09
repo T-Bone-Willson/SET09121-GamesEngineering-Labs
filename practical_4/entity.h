@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "system_renderer.h"
 
 class Entity {
 protected:
