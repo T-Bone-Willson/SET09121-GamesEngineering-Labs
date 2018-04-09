@@ -50,6 +50,14 @@ target_link_libraries(PRACTICAL_3 lib_tile_level_loader sfml-graphics)
 add_dependencies(PRACTICAL_3 copy_resources)
 set_target_properties(PRACTICAL_3 PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration))
 
+#### Practical 4 ####
+file(GLOB_RECURSE SOURCES practical_4/*.cpp practical_4/*.h)
+add_executable(PRACTICAL_4 ${SOURCES})
+target_include_directories(PRACTICAL_4 SYSTEM PRIVATE ${SFML_INCS})
+target_link_libraries(PRACTICAL_4 lib_tile_level_loader lib_ecm sfml-graphics)
+add_dependencies(PRACTICAL_4 copy_resources)
+set_target_properties(PRACTICAL_4 PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration))
+
 ### Link Dependencies ###
 foreach (exe ${EXECUTABLES})
 	### Set working directory to build dir in visual studio ###
