@@ -5,6 +5,7 @@
 #include "ghost.h"
 #include "system_renderer.h"
 #include "pacman.h"
+#include "scene.h"
 
 using namespace sf;
 using namespace std;
