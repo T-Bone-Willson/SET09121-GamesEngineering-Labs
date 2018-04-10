@@ -25,6 +25,6 @@ public:
 struct EntityManager {
 	// Loops through the vector and update/render all Entities. Like Player and Ghost for example.
 	std::vector<std::shared_ptr<Entity>> list;
-	void update(double dt);
+	void update(float dt);
 	void render(sf::RenderWindow &window);
 };

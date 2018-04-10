@@ -1,8 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "entity.h"
-#include "player.h"
-#include "ghost.h"
 #include "system_renderer.h"
 #include "pacman.h"
 #include "scene.h"
@@ -15,31 +13,24 @@ using namespace std;
 /*std::vector<Entity *> entities;
 Player* player;*/
 
-EntityManager em; // All entities parse or go through here... I think
-
-void Reset() {
-	//player->setPosition({ 50.f, 50.f });
-}
+std::shared_ptr<Scene> gameScene;
+std::shared_ptr<Scene> menuScene;
+std::shared_ptr<Scene> activeScene;
 
 void Load() {
-
-	// Player
-	shared_ptr<Entity> player = make_shared<Player>(); // Adds the player entity the the EntityManager
-	em.list.push_back(player);
-	// "make_shared<player>();" calls the constructor of player with no parameters
-
-	// Ghosts
-	for (int i = 0; i < 4; i++) {
-		shared_ptr<Entity> ghost = make_shared<Ghost>()); // Adds the Ghost entity into the EntityManager
-		em.list.push_back(ghost);
-	}
-	Reset();
+	// Load Scene assets that correspond to the scene...
+	gameScene.reset(new GameScene());
+	menuScene.reset(new MenuScene());
+	gameScene->load();
+	menuScene->load();
+	// start at main menu
+	activeScene = menuScene;
 }
-
 void Update(RenderWindow &window) {
 	// reset Clock, recalculate deltatime
 	static Clock clock;
 	float dt = clock.restart().asSeconds();
+	activeScene->update(dt);
 	// check and consumer events
 	Event event;
 	while (window.pollEvent(event)) {
@@ -52,12 +43,13 @@ void Update(RenderWindow &window) {
 	// Quit via ESC Key
 	if (Keyboard::isKeyPressed(Keyboard::Escape)) {
 		window.close();
-	}
-		em.update(dt);	
+	}	
 }
 
 void Render(RenderWindow &window) {
-		em.render(window);
+	activeScene->render();
+	// Flush to screen
+	Renderer::render();
 }
 
 int main() {

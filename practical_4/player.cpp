@@ -19,6 +19,13 @@ void Player::update(float dt) {
 	if (Keyboard::isKeyPressed(Keyboard::Down)) {
 		displacement.y++;
 	}
+	// Normalised displacement
+	float l = sqrt(displacement.x * displacement.x + displacement.y * displacement.y);
+	if (l != 0) {
+		displacement.x = displacement.x / 1;
+		displacement.y = displacement.y / 1;
+	}
+
 	move((float)dt * displacement * _speed); // direction for player.
 
 	Entity::update(dt);
