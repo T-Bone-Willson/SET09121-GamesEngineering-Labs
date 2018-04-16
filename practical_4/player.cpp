@@ -31,11 +31,23 @@ void Player::update(float dt) {
 	Entity::update(dt);
 }
 
+/*
 Player::Player() : _speed(200.0f), Entity(make_unique<CircleShape>(25.f)) {
 	_shape->setFillColor(Color::Yellow);
 	_shape->setOrigin(Vector2f(25.f, 25.f));
 }
+*/
 
+Player::Player() {
+
+}
+
+/*
 void Player::render(sf::RenderWindow &window) const {
 	Renderer::queue(_shape.get());
+}
+*/
+
+void Player::render() {
+
 }

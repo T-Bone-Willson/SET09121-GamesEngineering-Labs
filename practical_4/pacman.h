@@ -15,7 +15,7 @@ private:
 	sf::Text text;
 
 public:
-	MenuScene();
+	MenuScene() = default;
 	void update(float dt) override;
 	void render() override;
 	void load() override;

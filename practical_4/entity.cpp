@@ -1,3 +1,4 @@
+/*
 #include "entity.h"
 
 using namespace std;
@@ -29,3 +30,4 @@ void EntityManager::render(RenderWindow &window) {
 	}
 	//Renderer::render();
 }
+*/

@@ -8,5 +8,5 @@ void Scene::update(const float dt) {
 }
 
 void Scene::render() {
-	_ents.render(Renderer::getWindow());
+	_ents.render();
 }

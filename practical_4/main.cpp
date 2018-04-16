@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "entity.h"
+//#include "entity.h"
 #include "system_renderer.h"
 #include "pacman.h"
 #include "scene.h"
@@ -24,7 +24,9 @@ void Load() {
 	gameScene->load();
 	menuScene->load();
 	// start at main menu
-	activeScene = menuScene;
+
+	//activeScene = menuScene;
+	activeScene = gameScene; 
 }
 void Update(RenderWindow &window) {
 	// reset Clock, recalculate deltatime
