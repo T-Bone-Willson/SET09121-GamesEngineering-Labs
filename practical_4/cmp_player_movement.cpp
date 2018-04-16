@@ -1,45 +1,38 @@
-/*
-//#include "player.h"
-#include "system_renderer.h"
+#include "cmp_player_movement.h"
+#include <SFML/Graphics.hpp>
 
 using namespace sf;
 using namespace std;
 
-void Player::update(float dt) {
+PlayerMovementComponent::PlayerMovementComponent(Entity* p) : ActorMovementComponent(p) {
 
+}
+
+void PlayerMovementComponent::update(float dt) {
+
+	// COPY AND PASTED FROM "player.cpp"
 	// Movement
 	
 	sf::Vector2f displacement = { 0.0f, 0.0f };
 	if (Keyboard::isKeyPressed(Keyboard::Left)) {
-		displacement.x --;
+	displacement.x --;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Right)) {
-		displacement.x ++;
+	displacement.x ++;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Up)) {
-		displacement.y--;
+	displacement.y--;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Down)) {
-		displacement.y++;
+	displacement.y++;
 	}
 	// Normalised displacement
 	float l = sqrt(displacement.x * displacement.x + displacement.y * displacement.y);
 	if (l != 0) {
-		displacement.x = displacement.x / 1;
-		displacement.y = displacement.y / 1;
+	displacement.x = displacement.x / 1;
+	displacement.y = displacement.y / 1;
 	}
 
 	move((float)dt * displacement * _speed); // direction for player.
 
-	Entity::update(dt);
-	
 }
-
-Player::Player() {
-
-}
-
-void Player::render() {
-
-}
-*/

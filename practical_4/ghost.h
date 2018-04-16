@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 //#include "entity.h"
@@ -14,3 +15,4 @@ public:
 	void render();
 
 };
+*/

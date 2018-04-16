@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 //#include "entity.h"
@@ -12,3 +13,4 @@ public:
 	Player();
 	void render();
 };
+*/

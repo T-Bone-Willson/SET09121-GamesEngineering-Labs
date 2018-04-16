@@ -37,7 +37,7 @@ public:
 
 	template <typename T, typename... Targs>
 	std::shared_ptr<T> addComponent(Targs... params) {
-		static_assert(std::is_base_of<Component>, T > ::value, "T != component");
+		static_assert(std::is_base_of<Component, T>::value, "T != component");
 		std::shared_ptr<T> sp(std::make_shared<T>(this, params...));
 		_components.push_back(sp);
 		return sp;

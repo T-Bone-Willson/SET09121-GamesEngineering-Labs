@@ -2,9 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 #include "scene.h"
+#include "ecm.h"
 
 constexpr uint16_t gameWidth = 800;
-constexpr uint16_t gameHeight = 600;
+constexpr uint16_t gameHeight = 1000;
 
 extern std::shared_ptr<Scene> gameScene;
 extern std::shared_ptr<Scene> menuScene;

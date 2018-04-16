@@ -17,12 +17,14 @@ void Entity::setPosition(const Vector2f &pos) {
 
 void Entity::update(const float dt) {
 	for (auto c : _components) {
-		c->render();
+		c->update(dt);
 	}
 }
 
 void Entity::render() {
-
+	for (auto c : _components) {
+		c->render();
+	}
 }
 
 void EntityManager::update(const float dt) {
