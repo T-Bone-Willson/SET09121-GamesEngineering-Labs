@@ -22,6 +22,6 @@ void EnemyAICom::update(float dt) {
 		displacement.y = displacement.y / 1;
 	}
 
-	move((float)dt * displacement * _speed); // direction for player.
+	//move((float)dt * displacement * _speed); // direction for player.
 	
 }

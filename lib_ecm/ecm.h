@@ -42,6 +42,34 @@ public:
 		_components.push_back(sp);
 		return sp;
 	}
+
+	// Honestly don't know how this works...
+	template <typename T>
+	const std::vector<std::shared_ptr<T>> get_components() const {
+		static_assert(std::is_base_of<Component, T>::value, "T != component");
+		std::vector<std::shared_ptr<T>> ret;
+		for (const auto c : _components) {
+			if (typeid(*c) == typeid(T)) {
+				ret.push_back(std::dynamic_pointer_cast<T>(c));
+			}
+		}
+		return std::move(ret);
+	}
+
+	// Will return a T component, or anything derived from a T component.
+	template <typename T>
+	const std::vector<std::shared_ptr<T>> GetCompatibleComponents() {
+		static_assert(std::is_base_of<Component>, T > ::Value, "T !=component");
+		std::vector<std::shared_ptr<T>> ret;
+		for (auto c : _components) {
+			auto dd = dynamic_cast<T*>(&(*c));
+			if (dd) {
+				ret.push_back(std::dynamic_pointer_cast<T>(c));
+			}
+		}
+		return ret;
+	}
+
 };
 
 struct EntityManager {

@@ -160,7 +160,7 @@ std::vector<sf::Vector2ul> LevelSystem::findTiles(LevelSystem::TILE tile) {
 
 	}
 	if (ret.size() == 0) {
-		throw string("YO DAWG, I HEARD YOU LIKE TILES? BUT WE GOT NONE!!!");
+		throw string("YO DAWG, I HEARD YOU LIKE TILES? BUT WE GOT NONE!!! ");
 	}
 	return ret;
 }

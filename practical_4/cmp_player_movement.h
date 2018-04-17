@@ -11,6 +11,5 @@ public:
 	void render() override {
 	
 	}
-
 	void update(float dt) override;
 };
