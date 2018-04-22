@@ -2,7 +2,6 @@
 
 //#include "entity.h"
 #include <memory>
-
 #include "ecm.h"
 #include "system_renderer.h"
 

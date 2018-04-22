@@ -9,7 +9,6 @@
 class Component; // Forward Declare
 
 class Entity {
-
 protected:
 	std::vector<std::shared_ptr<Component>> _components;
 	sf::Vector2f _position;
@@ -20,7 +19,7 @@ protected:
 
 public:
 	Entity();
-	virtual ~Entity() = default;
+	virtual ~Entity();
 	virtual void update(float dt);
 	virtual void render();
 
@@ -56,10 +55,11 @@ public:
 		return std::move(ret);
 	}
 
-	// Will return a T component, or anything derived from a T component.
+	// Will return a T component, or anything derived from a T
 	template <typename T>
-	const std::vector<std::shared_ptr<T>> GetCompatibleComponents() {
-		static_assert(std::is_base_of<Component>, T > ::Value, "T !=component");
+	const std::vector<std::shared_ptr<T>> GetCompatibleComponent() {
+		static_assert(std::is_base_of<Component, T>::value,
+			"T must be a component");
 		std::vector<std::shared_ptr<T>> ret;
 		for (auto c : _components) {
 			auto dd = dynamic_cast<T*>(&(*c));
@@ -69,7 +69,6 @@ public:
 		}
 		return ret;
 	}
-
 };
 
 struct EntityManager {
@@ -90,5 +89,5 @@ public:
 	bool is_fordeletion() const;
 	virtual void update(float dt) = 0;
 	virtual void render() = 0;
-	virtual ~Component() = default;
+	virtual ~Component();
 };

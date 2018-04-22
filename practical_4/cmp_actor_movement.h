@@ -2,7 +2,7 @@
 
 #include <ecm.h>
 
-class ActorMovementComponent : Component {
+class ActorMovementComponent : public Component {
 
 protected:
 	bool validMove(const sf::Vector2f&);

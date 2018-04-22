@@ -4,6 +4,10 @@
 #include "cmp_actor_movement.h"
 
 class EnemyAICom : public ActorMovementComponent {
+protected:
+	sf::Vector2f _direction;
+	enum state { DEADEND, ROAMING, ROTATING, ROTATED }; // 4 States for Ghosts
+	state _state;
 
 public:
 	explicit EnemyAICom(Entity* p);

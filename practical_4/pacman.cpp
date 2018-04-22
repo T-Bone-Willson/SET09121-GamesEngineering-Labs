@@ -1,7 +1,4 @@
 #include "pacman.h"
-//#include "entity.h"
-//#include "player.h"
-//#include "ghost.h"
 #include "cmp_sprite.h"
 #include "cmp_actor_movement.h"
 #include "cmp_player_movement.h"
@@ -35,6 +32,13 @@ void GameScene::update(float dt) {
 	if (Keyboard::isKeyPressed(Keyboard::Tab)) {
 		activeScene = menuScene;
 	}
+
+	// Reset game when ghost hits pacman
+	for (auto& g : ghosts) {
+		if (length(g->getPosition() - player->getPosition()) < 30.f) {
+			respawn();
+		}
+	}
 	Scene::update(dt);
 }
 
@@ -44,17 +48,13 @@ void GameScene::render() {
 }
 
 void GameScene::respawn() {
-	//Copied from load()
-	//pl->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
 
 	player->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
-
 	player->GetCompatibleComponents<ActorMovementComponent>()[0]->setSpeed(150.f); // I believe this is a movement component for player.
 
 	auto ghost_spawns = ls::findTiles(ls::ENEMY);
 	for (auto& g : ghosts) {
 		g->setPosition(ls::getTilePosition(ghost_spawns[rand() % GHOST_COUNT]));
-
 		g->GetCompatibleComponent<ActorMovementComponent>()[0]->setSpeed(100.f); // WHY U NO WORK!?!?!?!?!
 	}
 }
@@ -69,12 +69,9 @@ void GameScene::load() {
 		auto s = player->addComponent<ShapeComponent>();
 		s->setShape<sf::CircleShape>(12.f);
 		s->getShape().setFillColor(Color::Yellow);
-		s->getShape().setOrigin(Vector2f(12.f, 12.f));
+		s->getShape().setOrigin({ 12.f, 12.f });
 
 		player->addComponent<PlayerMovementComponent>(); // Comes from Player movement component
-
-		//May need to move/copy to respawn()
-		//pl->setPosition(ls::getTilePosition(ls::findTiles(ls::START)[0]));
 
 		_ents.list.push_back(player);
 	}
@@ -91,15 +88,13 @@ void GameScene::load() {
 		auto s = ghost->addComponent<ShapeComponent>();
 		s->setShape<sf::CircleShape>(12.f);
 		s->getShape().setFillColor(ghost_cols[i % 4]);
-		s->getShape().setOrigin(Vector2f(12.f, 12.f));
+		s->getShape().setOrigin({ 12.f, 12.f });
 
-	// Ghosts
+		// Ghosts
 		ghost->addComponent<EnemyAICom>();
-		//ghost->setPosition({ 300.f, 300.f });
-
+		
 	_ents.list.push_back(ghost);
 	ghosts.push_back(ghost);
-	}
-	
+	}	
 	respawn();
 }

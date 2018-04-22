@@ -4,14 +4,14 @@
 #include "scene.h"
 #include "ecm.h"
 
-constexpr uint16_t gameWidth = 800;
-constexpr uint16_t gameHeight = 1000;
+constexpr uint16_t gameWidth = 700;
+constexpr uint16_t gameHeight = 725;
 
 extern std::shared_ptr<Scene> gameScene;
 extern std::shared_ptr<Scene> menuScene;
 extern std::shared_ptr<Scene> activeScene;
 
-class MenuScene : public Scene { // This is the scene for the menu
+class MenuScene : public Scene {
 private:
 	sf::Text text;
 
@@ -22,7 +22,7 @@ public:
 	void load() override;
 };
 
-class GameScene : public Scene { // Game scene like pacman, ghosts and shit
+class GameScene : public Scene {
 private:
 	sf::Text text;
 	sf::Clock scoreClock;
@@ -31,6 +31,6 @@ private:
 public:
 	GameScene() = default;
 	void update(float dt) override;
-	void render()override;
-	void load()override;
+	void render() override;
+	void load() override;
 };

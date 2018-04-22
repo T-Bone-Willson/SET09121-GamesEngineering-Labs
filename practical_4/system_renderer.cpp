@@ -12,8 +12,9 @@ void Renderer::initialise(sf::RenderWindow &r) { rw = &r; }
 sf::RenderWindow &Renderer::getWindow() { return *rw; }
 
 void Renderer::shutdown() {
-	while (!sprites.empty())
+	while (!sprites.empty()) {
 		sprites.pop();
+	}
 }
 
 void Renderer::update(const float &) {
@@ -31,4 +32,3 @@ void Renderer::render() {
 }
 
 void Renderer::queue(const sf::Drawable *s) { sprites.push(s); }
-

@@ -1,17 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-//#include "entity.h"
 #include "system_renderer.h"
 #include "pacman.h"
 #include "scene.h"
 
 using namespace sf;
 using namespace std;
-
-
-// Think I need to remove this for my EntityManager systems...
-/*std::vector<Entity *> entities;
-Player* player;*/
 
 std::shared_ptr<Scene> gameScene;
 std::shared_ptr<Scene> menuScene;
@@ -24,8 +18,6 @@ void Load() {
 	gameScene->load();
 	menuScene->load();
 	// start at main menu
-
-	//activeScene = menuScene;
 	activeScene = gameScene; 
 }
 void Update(RenderWindow &window) {

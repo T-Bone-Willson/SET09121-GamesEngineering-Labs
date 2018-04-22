@@ -18,7 +18,7 @@ void PlayerMovementComponent::update(float dt) {
 	displacement.x --;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Right)) {
-	displacement.x ++;
+	displacement.x++;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Up)) {
 	displacement.y--;
