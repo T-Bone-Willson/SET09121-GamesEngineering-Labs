@@ -34,6 +34,12 @@ add_library(lib_ecm STATIC ${SOURCE_FILES})
 target_include_directories(lib_ecm INTERFACE "${CMAKE_SOURCE_DIR}/lib_ecm")
 target_link_libraries(lib_ecm PRIVATE lib_maths)
 
+#### B2D - Box2D physics library ####
+add_subdirectory("lib/b2d/Box2D")
+#include_directories("lib/b2d/Box2D/")
+set(B2D_INCS "lib/b2d/Box2D/")
+link_directories("${CMAKE_BINARY_DIR}/lib/sfml/lib")
+
 #### Practical 1 ####
 file(GLOB_RECURSE SOURCES practical_1/*.cpp practical_1/*.h)
 add_executable(PRACTICAL_1 ${SOURCES})
@@ -63,6 +69,13 @@ target_include_directories(PRACTICAL_4 SYSTEM PRIVATE ${SFML_INCS})
 target_link_libraries(PRACTICAL_4 lib_tile_level_loader lib_ecm sfml-graphics)
 add_dependencies(PRACTICAL_4 copy_resources)
 set_target_properties(PRACTICAL_4 PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration))
+
+#### Practical 5 ####
+file(GLOB_RECURSE SOURCES practical_5/*.cpp 	practical_5/*.h)
+add_executable(PRACTICAL_5 ${SOURCES})
+target_include_directories(PRACTICAL_5 SYSTEM PRIVATE ${SFML_INCS} ${B2D_INCS})
+target_link_libraries(PRACTICAL_5 Box2D sfml-graphics)
+set(EXECUTABLES ${EXECUTABLES} PRACTICAL_5)
 
 ### Link Dependencies ###
 foreach (exe ${EXECUTABLES})
